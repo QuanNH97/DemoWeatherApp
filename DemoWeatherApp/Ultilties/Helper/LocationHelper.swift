@@ -10,8 +10,8 @@ import Foundation
 import CoreLocation
 
 struct LocationHelper {
-    static let location = LocationHelper()
-    func getPlace(completion: @escaping (CLPlacemark?) -> Void, location: Location) {
+    static let shared = LocationHelper()
+    func getPlace(location: Location, completion: @escaping (CLPlacemark?) -> Void) {
         let geocoder = CLGeocoder()
         let location = CLLocation(latitude: location.lat, longitude: location.lon)
         geocoder.reverseGeocodeLocation(location) { placemarks, error in

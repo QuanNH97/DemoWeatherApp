@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Converter {
-    static let share = Converter()
+struct TemparatureConverter {
+    static let shared = TemparatureConverter()
     func convert(kevin: Double) -> String {
         let censius = kevin - 273
         return String(format: "%.f", censius)

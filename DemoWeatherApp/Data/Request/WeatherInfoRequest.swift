@@ -9,13 +9,11 @@
 import Foundation
 
 struct WeatherInfoRequest {
-    static let baseURL = URL(string: "https://api.openweathermap.org/data/2.5/onecall?")
-    static let appid = "b4cf0056f60268e79748af15829585b1"
     var query: [String: String]
     var url: URL?
     init(location: Location) {
-        self.query = ["lat": String(location.lat), "lon": String(location.lon), "appid": WeatherInfoRequest.appid]
-        if let url = WeatherInfoRequest.baseURL?.withQueries(query) {
+        self.query = [APIParamKeys.lat.rawValue: String(location.lat), APIParamKeys.lon.rawValue: String(location.lon), APIParamKeys.appid.rawValue: Constant.appid]
+        if let url = Constant.baseURL?.withQueries(query) {
             self.url = url
         }
     }

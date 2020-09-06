@@ -10,13 +10,11 @@ import UIKit
 import CoreLocation
 
 class ViewController: UIViewController {
-    var locationManager = CLLocationManager()
-    var location = Location(lat: 0.0, lon: 0.0)
-    var city: String = ""
-    var weather = Weather()
+    private var locationManager = CLLocationManager()
+    private var location = Location(lat: 0.0, lon: 0.0)
     
-//    @IBOutlet weak var timezoneOffset: UILabel!
-//    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var simpleDescriptionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +30,12 @@ class ViewController: UIViewController {
     }
     func updateUI(with weather: Weather) {
         DispatchQueue.main.async {
-//            guard let temp = weather.current?.temp else { return }
-//            self.temperatureLabel.text = Converter.share.convert(kevin: temp)
+            self.simpleDescriptionLabel.text = weather.current?.description?[0].main
         }
     }
     func updateCity(placeMark: CLPlacemark?) {
         DispatchQueue.main.async {
-//            self.timezoneOffset.text = placeMark?.locality
+            self.cityNameLabel.text = placeMark?.locality
         }
     }
 }
@@ -48,14 +45,18 @@ extension ViewController: CLLocationManagerDelegate {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         location.lat = locValue.latitude
         location.lon = locValue.longitude
-        LocationHelper.location.getPlace(completion: { placeMark in
-            self.updateCity(placeMark: placeMark)
-            print(self.location)
-            print(placeMark?.locality)
-        }, location: location)
-        APIService.share.fetchData(completion: { fetchedData in
-            self.updateUI(with: fetchedData)
-            print(fetchedData)
-        }, location: location)
+        LocationHelper.shared.getPlace(location: location, completion: { placeMark in
+            if let placeMark = placeMark {
+                self.updateCity(placeMark: placeMark)
+                print(self.location)
+                print(placeMark.locality ?? "")
+            }
+        })
+        APIService.share.fetchData(location: location, completion: { fetchedData in
+            if let fetchedData = fetchedData {
+                self.updateUI(with: fetchedData)
+                print(fetchedData)
+            }
+        })
     }
 }

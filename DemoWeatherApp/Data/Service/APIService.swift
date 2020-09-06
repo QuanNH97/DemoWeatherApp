@@ -10,9 +10,11 @@ import Foundation
 
 struct APIService {
     static let share = APIService()
-    func fetchData(completion: @escaping (Weather) -> Void, location: Location) {
-        guard let url = WeatherInfoRequest(location: location).url else { return }
-
+    func fetchData(location: Location, completion: @escaping (Weather?) -> Void) {
+        guard let url = WeatherInfoRequest(location: location).url else {
+            completion(nil)
+            return
+        }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             if let data = data {
@@ -21,9 +23,13 @@ struct APIService {
                     completion(result)
                 } catch let error {
                     print(error)
+                    completion(nil)
                 }
             }
-
+            else {
+                completion(nil)
+                return
+            }
         }
         task.resume()
     }
