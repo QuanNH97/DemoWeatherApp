@@ -11,6 +11,5 @@ import Foundation
 struct Constant {
     static let baseURLString = "https://api.openweathermap.org"
     static let path = APIPath().path
-    public static let appid = "b4cf0056f60268e79748af15829585b1"
-    public static let baseURL = URL(string: Constant.baseURLString + Constant.path)
+    static let appid = "b4cf0056f60268e79748af15829585b1"
 }

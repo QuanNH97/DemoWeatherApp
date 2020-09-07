@@ -9,11 +9,12 @@
 import Foundation
 
 struct WeatherInfoRequest {
+    let baseURL = URL(string: Constant.baseURLString + Constant.path)
     var query: [String: String]
     var url: URL?
     init(location: Location) {
         self.query = [APIParamKeys.lat.rawValue: String(location.lat), APIParamKeys.lon.rawValue: String(location.lon), APIParamKeys.appid.rawValue: Constant.appid]
-        if let url = Constant.baseURL?.withQueries(query) {
+        if let url = baseURL?.withQueries(query) {
             self.url = url
         }
     }
