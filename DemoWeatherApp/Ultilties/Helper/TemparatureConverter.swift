@@ -8,10 +8,9 @@
 
 import Foundation
 
-struct TemparatureConverter {
-    static let shared = TemparatureConverter()
-    func convert(kevin: Double) -> String {
-        let censius = kevin - 273
-        return String(format: "%.f", censius)
+extension Double {
+    func convert() -> String {
+        let censius = self - 273
+        return String(format: "%.f°", censius)
     }
 }
