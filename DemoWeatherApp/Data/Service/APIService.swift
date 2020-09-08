@@ -25,8 +25,7 @@ struct APIService {
                     print(error)
                     completion(nil)
                 }
-            }
-            else {
+            } else {
                 completion(nil)
                 return
             }

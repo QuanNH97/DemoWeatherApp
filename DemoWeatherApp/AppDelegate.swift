@@ -16,14 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Override point for customization after application launch.
             self.window = UIWindow(frame: UIScreen.main.bounds)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
     //        Setup rootViewController Using navigation controller
     //        let navigationController:UINavigationController = storyboard.instantiateInitialViewController() as! UINavigationController
     //        let rootViewController:UIViewController = storyboard.instantiateViewController(withIdentifier: "root") as UIViewController
     //        navigationController.viewControllers = [rootViewController]
     //        self.window?.rootViewController = navigationController
     //        self.window?.makeKeyAndVisible()
-            
     //        Without navigation controller
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "root")
             self.window?.rootViewController = initialViewController
