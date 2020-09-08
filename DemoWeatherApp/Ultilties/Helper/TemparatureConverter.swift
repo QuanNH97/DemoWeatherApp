@@ -9,7 +9,7 @@
 import Foundation
 
 extension Double {
-    func convert() -> String {
+    func convertKevinToCensius() -> String {
         let censius = self - 273
         return String(format: "%.f°", censius)
     }

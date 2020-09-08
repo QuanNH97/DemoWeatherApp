@@ -25,9 +25,9 @@ class TemparatureTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func configCell(weather: Weather) {
-        temparatureLabel.text = " " + (weather.current?.temp?.convert() ?? "")
-        afternoonTempLabel.text = "C:" + (weather.hourly?[14].temp?.convert() ?? "")
-        nightTempLabel.text = "T:" + (weather.hourly?[1].temp?.convert() ?? "")
+        temparatureLabel.text = " " + (weather.current?.temp?.convertKevinToCensius() ?? "")
+        afternoonTempLabel.text = "C:" + (weather.hourly?[14].temp?.convertKevinToCensius() ?? "")
+        nightTempLabel.text = "T:" + (weather.hourly?[1].temp?.convertKevinToCensius() ?? "")
         self.backgroundColor = nil
     }
 }

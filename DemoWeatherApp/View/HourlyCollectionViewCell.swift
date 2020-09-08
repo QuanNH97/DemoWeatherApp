@@ -20,23 +20,10 @@ class HourlyCollectionViewCell: UICollectionViewCell {
     func configCell(hour: Hourly, indexPath: IndexPath) {
         let currentHour = Calendar.current.component(.hour, from: Date())
         hourLabel.text = indexPath.row == 0 ? "Now" : "\((currentHour + indexPath.row) % 24)"
-        switch hour.description?.first?.main {
-        case "Clouds":
-            weatherImageView.image = UIImage(named: "cloudy")
-        case "Rain":
-            weatherImageView.image = UIImage(named: "rain")
-        case "Thunderstorm" :
-            weatherImageView.image = UIImage(named: "heavy rain")
-        case "Drizzle" :
-            weatherImageView.image = UIImage(named: "rain")
-        case "Snow" :
-            weatherImageView.image = UIImage(named: "snow")
-        case "Clear" :
-            weatherImageView.image = UIImage(named: "sunny")
-        default:
-            weatherImageView.image = nil
-        }
-        temparatureLabel.text = hour.temp?.convert()
+        guard let description = hour.description?.first else { return }
+        let iconImageName = WeatherIconHelper(description: description).iconImageName
+        weatherImageView.image = UIImage(named: iconImageName)
+        temparatureLabel.text = hour.temp?.convertKevinToCensius()
         self.backgroundColor = nil
     }
 }

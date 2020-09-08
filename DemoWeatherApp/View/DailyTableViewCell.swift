@@ -34,24 +34,11 @@ class DailyTableViewCell: UITableViewCell {
     func configCell(daily: Daily, indexPath: IndexPath) {
         let numberOfDay = indexPath.row - 2
         dayOfWeekLabel.text = DateFormatter().weekdaySymbols[(Calendar.current.component(.weekday, from: Date()) - 1 + numberOfDay) % 6]
-        switch daily.description?.first?.main {
-        case "Clouds":
-            weatherImageView.image = UIImage(named: "cloudy")
-        case "Rain":
-            weatherImageView.image = UIImage(named: "rain")
-        case "Thunderstorm" :
-            weatherImageView.image = UIImage(named: "heavy rain")
-        case "Drizzle" :
-            weatherImageView.image = UIImage(named: "rain")
-        case "Snow" :
-            weatherImageView.image = UIImage(named: "snow")
-        case "Clear" :
-            weatherImageView.image = UIImage(named: "sunny")
-        default:
-            weatherImageView.image = nil
-        }
-        minTemparatureLabel.text = daily.temp?.min?.convert()
-        maxTemparatureLabel.text = daily.temp?.max?.convert()
+        guard let description = daily.description?.first else { return }
+        let iconImageName = WeatherIconHelper(description: description).iconImageName
+        weatherImageView.image = UIImage(named: iconImageName)
+        minTemparatureLabel.text = daily.temp?.min?.convertKevinToCensius()
+        maxTemparatureLabel.text = daily.temp?.max?.convertKevinToCensius()
         minTemparatureLabel.textColor = .lightGray
         delegate?.updateTableView()
     }

@@ -42,7 +42,8 @@ class ViewController: UIViewController {
     }
     func updateUI(with weather: Weather) {
         DispatchQueue.main.async {
-            self.simpleDescriptionLabel.text = weather.current?.description?[0].main
+            guard let currentDescription = weather.current?.description?.first else { return }
+            self.simpleDescriptionLabel.text = currentDescription.main
             if NSTimeIntervalSince1970 > weather.current?.sunset ?? 0 {
                 self.backgroundImageView.image = UIImage(named: "night background")
             } else {
@@ -117,7 +118,7 @@ extension ViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "HourlyTableViewCell", for: indexPath) as? HourlyTableViewCell else { return UITableViewCell() }
             cell.configCell(hourly: hourly)
             return cell
-        case 2, 3, 4, 5, 6, 7, 8, 9:
+        case 2...9:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyTableViewCell", for: indexPath) as? DailyTableViewCell else { return UITableViewCell() }
             if daily.count != 0 {
                 cell.configCell(daily: daily[indexPath.row - 2], indexPath: indexPath)

@@ -37,7 +37,7 @@ class DetailWeatherTableViewCell: UITableViewCell {
         hummidityLabel.text = "\(weather.current?.humidity ?? 0)"
         windSpeedLabel.text = "\(weather.current?.windSpeed ?? 0) km/h"
         hummidityLabel.text = "\(weather.current?.humidity ?? 0) %"
-        feelLikeLabel.text = weather.current?.feelLike?.convert()
+        feelLikeLabel.text = weather.current?.feelLike?.convertKevinToCensius()
         rainVolumnLabel.text = "\((weather.daily?.first?.rain ?? 0) / 100) cm"
         visibilityLabel.text = "\((weather.current?.visibility ?? 0) / 1000) km"
         uviLabel.text = "\(weather.current?.uvi ?? 0)"
