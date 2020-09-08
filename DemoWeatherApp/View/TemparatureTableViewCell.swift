@@ -30,5 +30,4 @@ class TemparatureTableViewCell: UITableViewCell {
         nightTempLabel.text = "T:" + (weather.hourly?[1].temp?.convert() ?? "")
         self.backgroundColor = nil
     }
-    
 }

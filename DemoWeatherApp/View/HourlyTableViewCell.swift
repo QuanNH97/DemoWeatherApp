@@ -24,10 +24,8 @@ class HourlyTableViewCell: UITableViewCell {
         registerCollectionViewCell()
         selectionStyle = .none
     }
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     func configCollectionView() {
@@ -38,7 +36,7 @@ class HourlyTableViewCell: UITableViewCell {
         self.hourly = hourly
         self.backgroundColor = nil
     }
-    func registerCollectionViewCell(){
+    func registerCollectionViewCell() {
         let hourlyCollectionViewCell = UINib(nibName: "HourlyCollectionViewCell", bundle: nil)
         hourlyCollectionView.register(hourlyCollectionViewCell, forCellWithReuseIdentifier: "HourlyCollectionViewCell")
     }
@@ -50,7 +48,6 @@ extension HourlyTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return hourly.count - 24
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCollectionViewCell", for: indexPath) as? HourlyCollectionViewCell
             else { return UICollectionViewCell() }

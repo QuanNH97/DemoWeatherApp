@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     private var hourly: [Hourly] = []
     private var daily: [Daily] = []
     
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var weatherTableView: UITableView!
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var simpleDescriptionLabel: UILabel!
@@ -42,6 +43,11 @@ class ViewController: UIViewController {
     func updateUI(with weather: Weather) {
         DispatchQueue.main.async {
             self.simpleDescriptionLabel.text = weather.current?.description?[0].main
+            if NSTimeIntervalSince1970 > weather.current?.sunset ?? 0 {
+                self.backgroundImageView.image = UIImage(named: "night background")
+            } else {
+                self.backgroundImageView.image = UIImage(named: "clear day background")
+            }
             self.weatherTableView.reloadData()
         }
     }
@@ -101,7 +107,6 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 11
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
@@ -112,7 +117,7 @@ extension ViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "HourlyTableViewCell", for: indexPath) as? HourlyTableViewCell else { return UITableViewCell() }
             cell.configCell(hourly: hourly)
             return cell
-        case 2,3,4,5,6,7,8,9:
+        case 2, 3, 4, 5, 6, 7, 8, 9:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyTableViewCell", for: indexPath) as? DailyTableViewCell else { return UITableViewCell() }
             if daily.count != 0 {
                 cell.configCell(daily: daily[indexPath.row - 2], indexPath: indexPath)

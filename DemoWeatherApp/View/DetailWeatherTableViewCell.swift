@@ -35,12 +35,13 @@ class DetailWeatherTableViewCell: UITableViewCell {
         sunriseLabel.text = weather.current?.sunrise?.convertDurationTime()
         sunsetLabel.text = weather.current?.sunset?.convertDurationTime()
         hummidityLabel.text = "\(weather.current?.humidity ?? 0)"
-        windSpeedLabel.text = "\(weather.current?.windSpeed ?? 0)"
-        hummidityLabel.text = "\(weather.current?.humidity ?? 0)"
+        windSpeedLabel.text = "\(weather.current?.windSpeed ?? 0) km/h"
+        hummidityLabel.text = "\(weather.current?.humidity ?? 0) %"
         feelLikeLabel.text = weather.current?.feelLike?.convert()
-        rainVolumnLabel.text = "\(weather.daily?.first?.rain ?? 0)"
-        visibilityLabel.text = "\(weather.current?.visibility ?? 0)"
+        rainVolumnLabel.text = "\((weather.daily?.first?.rain ?? 0) / 100) cm"
+        visibilityLabel.text = "\((weather.current?.visibility ?? 0) / 1000) km"
         uviLabel.text = "\(weather.current?.uvi ?? 0)"
-        pressureLabel.text = "\(weather.current?.pressure ?? 0)"
+        pressureLabel.text = "\(weather.current?.pressure ?? 0) hPa"
+        changeOfRainLabel.text = "\(Int((weather.hourly?.first?.pop ?? 0) * 100)) %"
     }
 }
